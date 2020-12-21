@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:furnitureApp/Screens/sign_in/loginScreen.dart';
 
 class HomePage extends StatefulWidget {
   static String routeName = "/home";
+  final Function(bool showSignup) toggleHomePage;
+  HomePage({ this.toggleHomePage });
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(50),
                                           child: FlatButton(
                                             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                          onPressed: () {Navigator.pushNamed(context, LoginScreen.routeName);},
+                          onPressed: () {widget.toggleHomePage(false);},
                         color: Colors.black,
                      child: Text("LOGIN",
                      style: TextStyle(color: Colors.white,
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(50),
                                           child: FlatButton(
                                             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                          onPressed: () {},
+                          onPressed: () => widget.toggleHomePage(true),
                         color: Colors.white,
                      child: Text("SIGN UP",
                      style: TextStyle(color: Colors.black,

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:furnitureApp/homePage.dart';
-import 'package:furnitureApp/Screens/sign_in/loginScreen.dart';
 import 'package:flutter/widgets.dart';
+import './Screens/wrapper.dart';
+import 'package:furnitureApp/Screens/product_list/product_list.dart';
 
 final Map<String, WidgetBuilder> routes = {
-  HomePage.routeName: (context) => HomePage(),
-  LoginScreen.routeName: (context) => LoginScreen(),
-
+  Wrapper.routeName: (context) => Wrapper(),
+  ProductList.routeName: (context) => ProductList(),
 };

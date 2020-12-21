@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:furnitureApp/Screens/sign_in/components/custom_suffix_icon.dart';
 import 'package:furnitureApp/Screens/sign_in/components/default_button.dart';
 import 'package:furnitureApp/Screens/sign_in/components/form_error.dart';
+import 'package:furnitureApp/services/auth.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -17,6 +18,7 @@ class _SignFormState extends State<SignForm> {
   String password;
   bool remember = false;
   final List<String> errors = [];
+  final AuthService _auth = AuthService();
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -47,11 +49,14 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async{
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                // if all are valid then go to success screen
-                // Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+               
+              dynamic result = await _auth.signInWithEmailAndPassword(email, password); 
+              if(result == null) {
+                setState(() => addError(error: "Could not sign in with those credentials"));
+              } 
               }
             },
           ),
@@ -133,4 +138,4 @@ class _SignFormState extends State<SignForm> {
       ),
     );
   }
-}
+  }

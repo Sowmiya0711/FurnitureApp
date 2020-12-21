@@ -1,0 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:furnitureApp/Screens/authenticate/authenticate.dart';
+import 'package:furnitureApp/Screens/product_list/product_list.dart';
+import 'package:furnitureApp/models/user.dart';
+import 'package:provider/provider.dart';
+
+class Wrapper extends StatelessWidget {
+   static String routeName = "/homePage";
+
+
+  @override
+  Widget build(BuildContext context) {
+    
+
+    final user = Provider.of<UserModel>(context);
+    print(user);
+    // return either the Home or Authenticate widget
+    if(user == null) {
+      return Authenticate();
+    } else {
+    return ProductList();
+    }
+    
+  }
+}
