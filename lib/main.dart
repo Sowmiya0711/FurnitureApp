@@ -4,6 +4,7 @@ import 'package:furnitureApp/Screens/wrapper.dart';
 import 'package:furnitureApp/models/user.dart';
 import 'package:furnitureApp/routes.dart';
 import 'package:furnitureApp/services/auth.dart';
+import 'package:furnitureApp/size_config.dart';
 import 'package:furnitureApp/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -13,10 +14,13 @@ void main() async {
   runApp(MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+   
   @override
   Widget build(BuildContext context) {
+  
     return StreamProvider<UserModel>.value(
       value: AuthService().user,
           child: MaterialApp(

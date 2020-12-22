@@ -1,8 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:furnitureApp/services/authExceptionHandler.dart';
+import 'package:furnitureApp/services/authResultStatus.dart';
+import 'package:furnitureApp/services/database.dart';
 import '../models/user.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  AuthResultStatus _status;
 
   // Create user obj based on firebaseUser
  UserModel _userFromFirebaseUser(User user) {
@@ -22,32 +26,46 @@ class AuthService {
     return _userFromFirebaseUser(user);
     } catch(e) {
       print(e.toString());
-      return null;
+      return _userFromFirebaseUser(e.code);
     }
   }
 
   // Register with email and password
-  Future registerWithEmailAndPassword(String email,String password) async {
+  Future registerWithEmailAndPassword(String email,String password, String userName,int phoneNumber) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      
+      if(result.user != null) {
       User user = result.user;
-      return _userFromFirebaseUser(user);
+      await DatabaseService(uid: user.uid).updateUserData(userName, phoneNumber);
+      _userFromFirebaseUser(user);
+      _status = AuthResultStatus.successful;
+      } else {
+        _status = AuthResultStatus.undefined;
+      }
     } catch(e) {
-      print(e.toString());
-      return null;
+      print('Exception @createAccount: $e');
+      _status = AuthExceptionHandler.handleException(e);
     }
+    return _status;
   }
 
 // Sign In
   Future signInWithEmailAndPassword(String email,String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+     if (result.user != null) {
       User user = result.user;
-      return _userFromFirebaseUser(user);
+      _userFromFirebaseUser(user);
+      _status = AuthResultStatus.successful;
+     } else {
+       _status = AuthResultStatus.undefined;
+     }
     } catch(e) {
-      print(e.toString());
-      return null;
+      print('Exception @createAccount: $e');
+      _status = AuthExceptionHandler.handleException(e);
     }
+    return _status;
   }
 
   // Sign out
