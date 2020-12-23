@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:furnitureApp/Screens/sign_in/components/default_button.dart';
 import 'package:furnitureApp/Screens/sign_in/components/form_error.dart';
 import 'package:furnitureApp/constants.dart';
+import 'package:furnitureApp/models/user.dart';
 import 'package:furnitureApp/services/auth.dart';
 import 'package:furnitureApp/services/authExceptionHandler.dart';
 import 'package:furnitureApp/services/authResultStatus.dart';
 import 'package:furnitureApp/size_config.dart';
+import 'package:provider/provider.dart';
 
 class SignupForm extends StatefulWidget {
   @override
@@ -67,7 +69,7 @@ class _SignupFormState extends State<SignupForm> {
                     // addError(error: errorMsg);
                     _showAlertDialog(errorMsg);
                   });
-                }
+                } 
              }
             },
           ),

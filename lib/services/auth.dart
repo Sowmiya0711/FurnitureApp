@@ -10,7 +10,7 @@ class AuthService {
 
   // Create user obj based on firebaseUser
  UserModel _userFromFirebaseUser(User user) {
-   return user != null ? UserModel(uid:user.uid) : null;
+   return user != null ? UserModel(uid:user.uid,userName: user.displayName) : null;
  }
 
  // Auth change user stream
@@ -38,8 +38,11 @@ class AuthService {
       if(result.user != null) {
       User user = result.user;
       await DatabaseService(uid: user.uid).updateUserData(userName, phoneNumber);
+      user.updateProfile(displayName: userName);
+      
       _userFromFirebaseUser(user);
       _status = AuthResultStatus.successful;
+      
       } else {
         _status = AuthResultStatus.undefined;
       }
