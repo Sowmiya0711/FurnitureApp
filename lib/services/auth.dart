@@ -10,7 +10,7 @@ class AuthService {
 
   // Create user obj based on firebaseUser
  UserModel _userFromFirebaseUser(User user) {
-   return user != null ? UserModel(uid:user.uid,userName: user.displayName) : null;
+   return user != null ? UserModel(uid:user.uid,userName: user.displayName,email: user.email) : null;
  }
 
  // Auth change user stream
