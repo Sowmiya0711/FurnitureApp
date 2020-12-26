@@ -95,7 +95,7 @@ class _ProductListBodyState extends State<ProductListBody> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
              children: [
                Padding(
-                 padding: const EdgeInsets.only(left: 20.0),
+                 padding: const EdgeInsets.only(left: .0),
                  child: Text("New Arrivals",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
                ),
                
@@ -103,8 +103,8 @@ class _ProductListBodyState extends State<ProductListBody> {
                  onPressed: () {},
                   child: Row(
                    children: [
-                     Text("Show All",
-                     style: TextStyle(fontSize: 15,color: Colors.grey),),
+                     Text("Show all",
+                     style: TextStyle(fontSize: 15),),
                      Icon(Icons.arrow_right),
                    ],
                  ),
@@ -113,7 +113,7 @@ class _ProductListBodyState extends State<ProductListBody> {
              ],
            ),
            AspectRatio(
-             aspectRatio: 1.02,
+             aspectRatio: 0.95,
                child: ProductsList()
            ),
    ],
