@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureApp/Screens/sign_in/inheritedSignInProvider.dart';
-import 'package:furnitureApp/models/product.dart';
 import 'package:furnitureApp/models/productList.dart';
 import 'package:provider/provider.dart';
 

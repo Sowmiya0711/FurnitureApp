@@ -27,6 +27,8 @@ class ProductList with ChangeNotifier {
       price: 29.99,
       imageUrl:
           'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+      starRating: 3,
+      colors: [{"color": "0xF356C95","isSelected": true },{"color": "0xFFF8C078","isSelected": false},{"color": "0xFFA29B9B" ,"isSelected": false}]
     ),
     Product(
       id: 'p2',
@@ -35,6 +37,8 @@ class ProductList with ChangeNotifier {
       price: 59.99,
       imageUrl:
           'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+      starRating: 4,
+     colors: [{"color": "0xF356C95","isSelected": true },{"color": "0xFFF8C078","isSelected": false},{"color": "0xFFA29B9B" ,"isSelected": false}]
     ),
     Product(
       id: 'p3',
@@ -43,6 +47,8 @@ class ProductList with ChangeNotifier {
       price: 19.99,
       imageUrl:
           'https://firebasestorage.googleapis.com/v0/b/furnitureapp-46601.appspot.com/o/lamp-CarouselView.jpeg?alt=media&token=6d2693c7-aa1c-4004-bb4c-83e1c946f84a',
+      starRating: 5,
+      colors: [{"color": "0xF356C95","isSelected": true },{"color": "0xFFF8C078","isSelected": false},{"color": "0xFFA29B9B" ,"isSelected": false}]
     ),
     Product(
       id: 'p4',
@@ -51,6 +57,8 @@ class ProductList with ChangeNotifier {
       price: 49.99,
       imageUrl:
           'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
+      starRating: 5,
+      colors: [{"color": "0xF356C95","isSelected": true },{"color": "0xFFF8C078","isSelected": false},{"color": "0xFFA29B9B" ,"isSelected": false}]
     ),
   ];
 
@@ -66,6 +74,12 @@ class ProductList with ChangeNotifier {
   toggleFavourite(Product item) {
     int index = _items.indexWhere((element) => element.id == item.id);
     _items[index].isFavorite = !_items[index].isFavorite;
+    notifyListeners();
+  }
+
+  updatePrice(Product item,double price) {
+    int index = _items.indexWhere((element) => element.id == item.id);
+    _items[index].cartPrice = price;
     notifyListeners();
   }
 }

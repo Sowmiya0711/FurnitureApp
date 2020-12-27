@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:furnitureApp/Screens/sign_in/inheritedSignInProvider.dart';
 
 class RatingBarIndicators extends StatelessWidget {
   @override
@@ -14,7 +15,9 @@ class RatingBarIndicators extends StatelessWidget {
                       ),
                         itemCount: 5,
                         itemSize: 25.0,
+                        rating: (InheritedProductDetailsProvider.of(context).loadedProduct.starRating).toDouble(),
                       ),
+
                   );
   }
 }

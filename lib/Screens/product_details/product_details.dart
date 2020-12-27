@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureApp/Screens/product_details/components/favourite_icon.dart';
+import 'package:furnitureApp/Screens/product_details/components/product_price.dart';
 import 'package:furnitureApp/Screens/product_details/components/rating_bar_indicator.dart';
 import 'package:furnitureApp/extensions/colors.dart';
 import 'package:furnitureApp/models/product.dart';
@@ -50,7 +51,6 @@ class ProductDetailsScreen extends StatelessWidget {
                       alignment: Alignment.topRight,
                       
                       children: [
-                       
                         AspectRatio(
                           aspectRatio: 1.0,
                                 child: Hero(
@@ -81,7 +81,20 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 5),
                       ColorAndSize(),
+                      SizedBox(height: 5),
+                      ProductPrice(loadedProduct: loadedProduct,),
+                      SizedBox(height: 5),
                       
+                      Row(
+                        children: [
+                          Spacer(),
+                          RaisedButton(onPressed: () {print(loadedProduct.price);}, 
+                          
+                          child: Text("Buy Now",
+                          style: TextStyle(color: Colors.white)),
+                          color: Colors.black,),
+                        ],
+                      ),
                   ],
                 ),
               ),

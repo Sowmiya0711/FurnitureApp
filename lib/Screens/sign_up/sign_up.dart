@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureApp/Screens/sign_in/inheritedSignInProvider.dart';
 import 'package:furnitureApp/Screens/sign_up/components/signup_body.dart';
-import 'package:furnitureApp/size_config.dart';
+
 
 class Signup extends StatelessWidget {
   final Function toggleView;

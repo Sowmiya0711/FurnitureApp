@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furnitureApp/Screens/sign_in/inheritedSignInProvider.dart';
 
 class ColorAndSize extends StatefulWidget {
   @override
@@ -6,23 +7,49 @@ class ColorAndSize extends StatefulWidget {
 }
 
 class _ColorAndSizeState extends State<ColorAndSize> {
+ 
+
   @override
   Widget build(BuildContext context) {
+     final loadedProduct = InheritedProductDetailsProvider.of(context).loadedProduct;
+    
     return Padding(
       padding: const EdgeInsets.only(left: 25.0),
       child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text("Color",style: TextStyle(fontSize: 20),),
-                Row(
-                  children: <Widget>[
-                    ColorDot(
-                      color: Color(0xFF356C95),
-                      isSelected: true,
-                    ),
-                    ColorDot(color: Color(0xFFF8C078)),
-                    ColorDot(color: Color(0xFFA29B9B)),
-                  ],
+                SizedBox(
+                  height: 70,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: loadedProduct.colors.length,
+                    itemBuilder: (ctx, index) {
+                    return GestureDetector(
+                      onTap: () {
+                          
+                            for(int i = 0; i < loadedProduct.colors.length; i++) {
+                           
+                            if (i == index) {
+    setState(() {
+    
+    loadedProduct.colors[i]["isSelected"] = true;
+    });
+} else {
+    setState(() {
+    
+    loadedProduct.colors[i]["isSelected"] = false;
+    });
+} 
+                          }
+                      },
+                    
+                    child: ColorDot(color: Color(int.parse(loadedProduct.colors[index]["color"])),isSelected: loadedProduct.colors[index]["isSelected"],),
+                    
+                    
+                    );
+                    }
+                  ),
                 ),
               ],
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnitureApp/Screens/product_list/components/product_item.dart';
 import 'package:furnitureApp/models/productList.dart';
-import 'package:furnitureApp/models/product.dart';
 import 'package:provider/provider.dart';
 
 class ProductsList extends StatelessWidget {

@@ -6,6 +6,9 @@ class Product with ChangeNotifier {
   final String description;
   final double price;
   final String imageUrl;
+  final int starRating;
+  final List<Map<String,dynamic>> colors;
+  double cartPrice;
   bool isFavorite;
 
   Product(
@@ -15,9 +18,9 @@ class Product with ChangeNotifier {
       @required this.description, 
       @required this.price, 
       @required this.imageUrl,
+      @required this.starRating,
+      this.colors,
+      this.cartPrice,
       this.isFavorite = false
       });
-
-   
-
 }
