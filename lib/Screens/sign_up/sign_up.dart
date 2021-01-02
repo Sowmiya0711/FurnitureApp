@@ -19,7 +19,7 @@ class Signup extends StatelessWidget {
           style: TextStyle(color: Colors.grey,)),
          
           leading: IconButton(onPressed: () => toggleView(),
-          icon: Icon(Icons.close_sharp,size: 40),
+          icon: Icon(Icons.close_sharp,size: 40,),
           ),
         ),
         body: SignupBody(),

@@ -8,6 +8,7 @@ class Product with ChangeNotifier {
   final String imageUrl;
   final int starRating;
   final List<Map<String,dynamic>> colors;
+  int cartItemCount;
   double cartPrice;
   bool isFavorite;
 
@@ -21,6 +22,7 @@ class Product with ChangeNotifier {
       @required this.starRating,
       this.colors,
       this.cartPrice,
+      this.cartItemCount,
       this.isFavorite = false
       });
 }

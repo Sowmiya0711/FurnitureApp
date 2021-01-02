@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:furnitureApp/Screens/cart_screen/cart_screen.dart';
 import 'package:furnitureApp/Screens/product_list/components/products_list.dart';
+import 'package:furnitureApp/models/productList.dart';
 import 'package:furnitureApp/notifiers/product_list_notifier.dart';
 import 'package:furnitureApp/size_config.dart';
 import 'package:provider/provider.dart';
+import 'package:furnitureApp/Screens/product_list/components/best_seller.dart';
 
 class ProductListBody extends StatefulWidget {
   @override
@@ -59,44 +62,66 @@ class _ProductListBodyState extends State<ProductListBody> {
   );
 
 
- return Column(
-   crossAxisAlignment: CrossAxisAlignment.start,
-   children: [
-     SizedBox(
-      height: getProportionateScreenHeight(SizeConfig.screenHeight * 0.35),
-            child: Stack(
-        fit: StackFit.loose,
-             children: <Widget>[
-               imageCarouselView,
-                SafeArea(
-              child: AppBar(
-                backgroundColor:  Colors.transparent,
-                elevation: 0.0,
-                actions: <Widget>[
-                    IconButton(
-                     
-                      icon: Icon(Icons.card_travel,
-                      size: 30,
-                      color: Colors.black,),),
-                    IconButton(
-                      
-                      icon: Icon(Icons.home,
-                      size: 30,
-                      color: Colors.black,),),
-                ]
-          ),
+ return SingleChildScrollView(
+    child: Column(
+       crossAxisAlignment: CrossAxisAlignment.start,
+       children: [
+         SizedBox(
+          height: getProportionateScreenHeight(SizeConfig.screenHeight * 0.35),
+                child: Stack(
+            fit: StackFit.loose,
+                 children: <Widget>[
+                   imageCarouselView,
+                    SafeArea(
+                  child: AppBar(
+                    backgroundColor:  Colors.transparent,
+                    elevation: 0.0,
+                    actions: <Widget>[
+                        IconButton(
+                         
+                          icon: Icon(Icons.card_travel,
+                          size: 30,
+                          color: Colors.black,),
+                          onPressed: () => Navigator.of(context).
+                pushNamed(CartScreen.routeName,
+                arguments: Provider.of<ProductList>(context, listen: false).cartList),),
+                        IconButton(
+                          
+                          icon: Icon(Icons.home,
+                          size: 30,
+                          color: Colors.black,),),
+                    ]
               ),
-             ],
-             
-             ),
+                  ),
+                 ],
+                 
+                 ),
+         ),
+               SizedBox(height: 10),
+               buildTitle("New Arrivals"),
+               AspectRatio(
+                 aspectRatio: 1.6,
+                   child: ProductsList()
+               ),
+
+               SizedBox(height: 10,),
+               buildTitle("Best Sellers"),
+               
+              BestSeller(),
+               
+       ],
      ),
-           SizedBox(height: 10),
-           Row(
+ );
+ 
+  }
+
+  Row buildTitle(String title) {
+    return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
              children: [
                Padding(
-                 padding: const EdgeInsets.only(left: .0),
-                 child: Text("New Arrivals",style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+                 padding: const EdgeInsets.only(left: 20.0),
+                 child: Text(title,style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
                ),
                
                FlatButton(
@@ -111,13 +136,7 @@ class _ProductListBodyState extends State<ProductListBody> {
                ),
                
              ],
-           ),
-           AspectRatio(
-             aspectRatio: 0.95,
-               child: ProductsList()
-           ),
-   ],
- );
+           );
   }
   
 }

@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
             fit: StackFit.loose,
             children: [
               Container(
+                
                 constraints: BoxConstraints.expand(),
                 decoration: BoxDecoration(
                   image: DecorationImage(

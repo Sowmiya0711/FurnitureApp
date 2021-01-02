@@ -3,7 +3,12 @@ import 'package:furnitureApp/Screens/sign_in/inheritedSignInProvider.dart';
 import 'package:furnitureApp/models/productList.dart';
 import 'package:provider/provider.dart';
 
-class FavouriteIcon extends StatelessWidget {
+class FavouriteIcon extends StatefulWidget {
+  @override
+  _FavouriteIconState createState() => _FavouriteIconState();
+}
+
+class _FavouriteIconState extends State<FavouriteIcon> {
   @override
   Widget build(BuildContext context) {
    
@@ -26,13 +31,12 @@ class FavouriteIcon extends StatelessWidget {
                     ),
                    
                     onPressed: () {
+                      setState(() {
                     Provider.of<ProductList>(context, listen: false).toggleFavourite(InheritedProductDetailsProvider.of(context).loadedProduct);
-                    
+                    });
                     },
                   ),
                       ),
-            
-                      
                      ],
                   );
   }

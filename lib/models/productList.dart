@@ -19,6 +19,8 @@ class CarouselView {
 
 
 class ProductList with ChangeNotifier {
+  List<Product> _cartProducts = [];
+  
   List<Product> _items = [
     Product(
       id: 'p1',
@@ -66,6 +68,9 @@ class ProductList with ChangeNotifier {
     return[..._items];
   }
 
+  List<Product> get cartList {
+    return[..._cartProducts];
+  }
 
   Product findById(String id) {
     return _items.firstWhere((prod) => prod.id == id);
@@ -77,9 +82,24 @@ class ProductList with ChangeNotifier {
     notifyListeners();
   }
 
-  updatePrice(Product item,double price) {
+  updatePrice(Product item,double price,int cartItemCount) {
     int index = _items.indexWhere((element) => element.id == item.id);
-    _items[index].cartPrice = price;
+    _items[index].cartPrice = price.roundToDouble();
+    _items[index].cartItemCount = cartItemCount;
     notifyListeners();
+  }
+
+  addCartProduct(Product cartItem) {
+    if ((_cartProducts.singleWhere((it) => it.id == cartItem.id,
+          orElse: () => null)) != null) {
+    
+    } else {
+      _cartProducts.add(cartItem);
+    }
+    notifyListeners();
+  }
+
+  removeCartProduct() {
+    _cartProducts.clear();
   }
 }

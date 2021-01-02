@@ -24,3 +24,16 @@ class InheritedProductDetailsProvider extends InheritedWidget {
     return context.dependOnInheritedWidgetOfExactType<InheritedProductDetailsProvider>();
   }
 }
+
+class InheritedCartScreenProvider extends InheritedWidget {
+  const InheritedCartScreenProvider({Key key,Widget child,this.cartProducts}) : super(key: key,child: child);
+
+  final List<Product> cartProducts;
+  
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) => true;
+  
+   static InheritedCartScreenProvider of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<InheritedCartScreenProvider>();
+  }
+}

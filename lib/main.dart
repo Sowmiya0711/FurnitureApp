@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:furnitureApp/Screens/product_details/product_details.dart';
 import 'package:furnitureApp/Screens/wrapper.dart';
 import 'package:furnitureApp/models/product.dart';
 import 'package:furnitureApp/models/productList.dart';
@@ -34,7 +35,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: ProductList(),
         ),
-        
       ],
              child: MaterialApp(
           title: 'Flutter Demo',

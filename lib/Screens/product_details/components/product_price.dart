@@ -6,18 +6,21 @@ import 'package:provider/provider.dart';
 class ProductPrice extends StatefulWidget {
    
   final Product loadedProduct;
-  
-  ProductPrice({this.loadedProduct});
+  final bool isToLoadProduct;
+
+  ProductPrice({this.loadedProduct,this.isToLoadProduct});
 
   @override
-  _ProductPriceState createState() => _ProductPriceState(loadedProduct);
+  _ProductPriceState createState() => _ProductPriceState(loadedProduct,isToLoadProduct);
 }
 
 class _ProductPriceState extends State<ProductPrice> {
  final loadedProduct;
-  int numOfItems = 1;
+ final isToLoadProduct;
+  int numOfItems;
   double finalprice;
-  _ProductPriceState(this.loadedProduct);
+  
+_ProductPriceState(this.loadedProduct,this.isToLoadProduct);
 
 void increment() {
     setState(() {
@@ -36,24 +39,36 @@ void increment() {
   @override
   void initState() {
     super.initState();
-    finalprice = loadedProduct.price;
+   finalprice =  loadedProduct.cartPrice == null ? loadedProduct.price : loadedProduct.cartPrice;
+    numOfItems = loadedProduct.cartItemCount == null ? 1 : loadedProduct.cartItemCount;
   }
+
+@override
+void didUpdateWidget(ProductPrice oldWidget) {
+  if (oldWidget != widget) {
+    // values changed, restart animation.
+     finalprice = loadedProduct.cartPrice == null ? loadedProduct.price : loadedProduct.cartPrice;
+    numOfItems = loadedProduct.cartItemCount == null ? 1 : loadedProduct.cartItemCount;
+  }
+  super.didUpdateWidget(oldWidget);
+}
 
   @override
   Widget build(BuildContext context) {
     
-    return Padding(
+    return  
+    Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("Price per unit \$ ${loadedProduct.price}",style: TextStyle(color: Colors.blueGrey,
          fontSize: 15),),
-          Text("\$${finalprice.toString()}",style: TextStyle(
+         Text("\$${finalprice.toString()}",style: TextStyle(
             color: Colors.blueGrey,
-            fontSize: 20),),
-          SizedBox(height: 3),
-           
+            fontWeight: !isToLoadProduct ? FontWeight.bold : FontWeight.normal,
+            fontSize: isToLoadProduct ? 20 : 18),),
+         
           SizedBox(height: 10,),
           Row(
             children: <Widget>[
@@ -61,25 +76,23 @@ void increment() {
               buildOutlineBox(icon: Icons.remove,
               press: () {
                 if (numOfItems > 1) {
-                setState(() {
-                  decrement();
-                  Provider.of<ProductList>(context, listen: false).updatePrice(loadedProduct, finalprice);
-                });
+                 decrement();
+                  Provider.of<ProductList>(context, listen: false).updatePrice(loadedProduct, finalprice,numOfItems);
                 }
               }),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Text(numOfItems.toString().padLeft(2,"0"),
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline6.copyWith(fontSize: isToLoadProduct ? 17 : 15),
+               
                 ),
 
               ),
               buildOutlineBox(icon: Icons.add,
               press: () {
-                setState(() {
-                 increment();
-                 Provider.of<ProductList>(context, listen: false).updatePrice(loadedProduct, finalprice);
-                });
+                increment();
+                 Provider.of<ProductList>(context, listen: false).updatePrice(loadedProduct, finalprice,numOfItems);
+                
               }),
             ],
             ),
@@ -89,7 +102,7 @@ void increment() {
   }
 
    SizedBox buildOutlineBox({IconData icon,Function press}) {
-    return SizedBox(width: 40,height: 32,
+    return SizedBox(width: isToLoadProduct ? 40 : 30,height: isToLoadProduct ? 32 : 25,
       child: OutlineButton(
         padding: EdgeInsets.zero,
         onPressed: press,
